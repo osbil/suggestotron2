@@ -11,11 +11,14 @@
   </thead>
 
   <tbody>
-    <% @topics.each do |topic| %>
-      <tr>
+     <% @topics.sort_by{|topic| -topic.votes.count}.each do |topic| %>
+       <tr>
+
         <td><%= link_to topic.title, topic %></td>
         <td><%= pluralize(topic.votes.count, "vote") %></td>
         <td><%= button_to '+1', upvote_topic_path(topic), method: :post %></td>
+        <td><%= button_to '-1', downvote_topic_path(topic), method: :post %></td>
+
         <td><%= link_to 'delete', topic, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 
       </tr>
@@ -27,4 +30,6 @@
 
 <%= link_to 'New Topic', new_topic_path %>
 <br>
-  <th>about</th>
+
+<br>
+<%= link_to 'About', about_path %>

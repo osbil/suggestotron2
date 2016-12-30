@@ -10,6 +10,8 @@ class TopicsController < ApplicationController
   # GET /topics/1
   # GET /topics/1.json
   def show
+    # @topic = topic.find(params[:id])
+    # @topic = @topic.votes.order("created_at DESC")
   end
 
   # GET /topics/new
@@ -65,6 +67,18 @@ class TopicsController < ApplicationController
       @topic.votes.create
       redirect_to(topics_path)
     end
+    def downvote
+      @topic = Topic.find(params[:id])
+      if @topic.votes.count > 0
+      @topic.votes.last.destroy
+      end
+      redirect_to(topics_path)
+    end
+   def about
+     #@topic = Topic.about
+   end
+
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
